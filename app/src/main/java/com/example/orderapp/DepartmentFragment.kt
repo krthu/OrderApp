@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [DepartmentFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class DepartmentFragment() : Fragment() {
+class DepartmentFragment() : Fragment(){
     val departments = mutableListOf<Department>()
     lateinit var recyclerView: RecyclerView
     val db = Firebase.firestore
@@ -46,11 +47,22 @@ class DepartmentFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.departmentRecycleView)
 
-        val adapter = DepartmentAdapter(requireContext(), departments)
+        val adapter = DepartmentAdapter(requireContext(), departments, this)
         recyclerView.adapter = adapter
         val dividerItemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(dividerItemDecoration)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        val newButton = view.findViewById<Button>(R.id.newButton)
+        newButton.setOnClickListener{
+            val newDepartmentFragment = NewDepartmentFragment()
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.addToBackStack(null)
+                ?.replace(R.id.fragmentContainer, newDepartmentFragment)
+                ?.commit()
+
+        }
+
 
         val docRef = db.collection("departments")
         docRef.addSnapshotListener{snapshot, e ->
@@ -67,6 +79,20 @@ class DepartmentFragment() : Fragment() {
             }
             adapter.notifyDataSetChanged()
         }
+    }
+
+    fun onItemClick(documentId: String?) {
+        val bundle = Bundle()
+        bundle.putString("id", documentId)
+        if (documentId != null) {
+            val brandFragment = BrandFragment.newInstance(documentId)
+            val supportFragmentManager = activity?.supportFragmentManager
+            supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainer, brandFragment)
+                ?.commit()
+
+        }
+
     }
 
     companion object {
@@ -88,4 +114,6 @@ class DepartmentFragment() : Fragment() {
                 }
             }
     }
+
+
 }

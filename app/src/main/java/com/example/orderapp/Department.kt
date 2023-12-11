@@ -1,4 +1,6 @@
 package com.example.orderapp
 
-data class Department(var name: String? = null) {
+import com.google.firebase.firestore.DocumentId
+
+data class Department(@DocumentId var documentId: String? = null, val name: String? = null) {
 }
