@@ -7,27 +7,28 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class DepartmentAdapter(val context: Context, val departments: List<Department>): RecyclerView.Adapter<DepartmentAdapter.ViewHolder>() {
+class DepartmentAdapter(val context: Context, val departments: List<Department>): RecyclerView.Adapter<DepartmentAdapter.ItemViewHolder>() {
     private val layoutInflater = LayoutInflater.from(context)
     private val resources = context.resources
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewHolder {
+    ): ItemViewHolder {
         val itemView = layoutInflater.inflate(R.layout.department_row_item, parent, false)
-        return ViewHolder(itemView)
+        return ItemViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: DepartmentAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val department = departments[position]
-        holder.departmentNameView.text = department.name
+        val name = department.name?.substring(0,1)?.uppercase() + department.name?.substring(1)
+        holder.departmentNameView.text = name
     }
 
     override fun getItemCount() = departments.size
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val departmentNameView = itemView.findViewById<TextView>(R.id.deparmentNameTextView)
+    inner class ItemViewHolder(view: View): RecyclerView.ViewHolder(view){
+        val departmentNameView = view.findViewById<TextView>(R.id.deparmentNameTextView)
     }
 
 
