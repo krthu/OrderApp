@@ -2,5 +2,8 @@ package com.example.orderapp
 
 import com.google.firebase.firestore.DocumentId
 
-data class Department(@DocumentId var documentId: String? = null, val name: String? = null) {
+data class Department(
+    @DocumentId var documentId: String? = null,
+    val name: String? = null,
+    val brands: MutableList<Brand>? = null) {
 }
