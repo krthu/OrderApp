@@ -8,8 +8,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class BrandAdapter(context: Context, val brands: List<Brand>, val fragment: BrandFragment): RecyclerView.Adapter<BrandAdapter.ItemViewHolder>() {
-    private val inlater = LayoutInflater.from(context)
+    private val inflater = LayoutInflater.from(context)
     inner class ItemViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
+        init {
+            itemView.setOnClickListener{
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION){
+                    fragment.onBrandClick(brands[position].brandId)
+                }
+            }
+        }
+
+
         val brandNameTextView = itemView.findViewById<TextView>(R.id.brandNameTextView)
     }
 
@@ -17,7 +27,7 @@ class BrandAdapter(context: Context, val brands: List<Brand>, val fragment: Bran
         parent: ViewGroup,
         viewType: Int
     ): ItemViewHolder {
-        val itemView = inlater.inflate(R.layout.brand_item, parent, false)
+        val itemView = inflater.inflate(R.layout.brand_item, parent, false)
         return ItemViewHolder(itemView)
     }
 
@@ -25,7 +35,9 @@ class BrandAdapter(context: Context, val brands: List<Brand>, val fragment: Bran
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val brand = brands[position]
-        val name = brand.name?.substring(0,1)?.uppercase() + brand.name?.substring(2)
+        val name = brand.name?.substring(0,1)?.uppercase() + brand.name?.substring(1)
         holder.brandNameTextView.text = name
     }
+
+
 }

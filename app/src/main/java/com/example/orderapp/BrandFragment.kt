@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,9 +58,10 @@ class BrandFragment : Fragment() {
         val adapter = BrandAdapter(requireContext(), brands, this)
         recyclerView.adapter = adapter
 
-
-
-
+        val newBrandButton = view.findViewById<Button>(R.id.newBrandButton)
+        newBrandButton.setOnClickListener{
+            goToNewBrandFragment()
+        }
         val db = Firebase.firestore
         if (documentId != null){
 
@@ -80,8 +82,26 @@ class BrandFragment : Fragment() {
                 adapter.notifyDataSetChanged()
             }
         }
-
     }
+
+    fun goToNewBrandFragment(){
+        val fragment = NewBrandFragment.newInstance(documentId)
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.addToBackStack(null)
+            ?.replace(R.id.fragmentContainer, fragment )
+            ?.commit()
+    }
+
+    fun onBrandClick(brandId: String?){
+        if (brandId != null){
+            val modelFragment = ModelFragment()
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.addToBackStack(null)
+                ?.replace(R.id.fragmentContainer, modelFragment)
+                ?.commit()
+        }
+    }
+
 
     companion object {
         /**

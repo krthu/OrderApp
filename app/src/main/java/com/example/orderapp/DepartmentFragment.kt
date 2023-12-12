@@ -72,9 +72,7 @@ class DepartmentFragment() : Fragment(){
                     val department = document.toObject<Department>()
                     if (department != null){
                         departments.add(department)
-
                     }
-
                 }
             }
             adapter.notifyDataSetChanged()
@@ -88,6 +86,7 @@ class DepartmentFragment() : Fragment(){
             val brandFragment = BrandFragment.newInstance(documentId)
             val supportFragmentManager = activity?.supportFragmentManager
             supportFragmentManager?.beginTransaction()
+                ?.addToBackStack(null)
                 ?.replace(R.id.fragmentContainer, brandFragment)
                 ?.commit()
 

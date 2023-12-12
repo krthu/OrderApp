@@ -4,36 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BrandFragment">
+    tools:context=".NewBrandFragment">
 
     <TextView
-        android:id="@+id/brandTextView"
+        android:id="@+id/newBrandTextView"
         style="@style/heading1RecycleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Brands"
+        android:layout_marginTop="40dp"
+        android:text="New Brand"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/brandRecycleView"
-        android:layout_width="409dp"
-        android:layout_height="626dp"
-        android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/brandTextView" />
-
-    <Button
-        android:id="@+id/newBrandButton"
+    <EditText
+        android:id="@+id/newBrandEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:text="New"
-        app:layout_constraintBottom_toTopOf="@+id/brandRecycleView"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Brand name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newBrandTextView" />
+
+    <Button
+        android:id="@+id/saveBrandButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newBrandEditText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
